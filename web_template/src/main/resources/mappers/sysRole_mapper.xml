@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bsit.mapper.SysRoleMapper" >
+	
+	<!-- 添加对象 -->
+	<insert id="saveSysRole" parameterType="com.bsit.model.SysRole" >
+		insert into sys_role (
+			id,
+			r_role_name,
+			r_role_type,
+			r_role_time,
+			r_fun_ids,
+			r_role_desc
+		) values (
+			#{id, jdbcType = VARCHAR},
+			#{r_role_name, jdbcType = VARCHAR},
+			#{r_role_type, jdbcType = VARCHAR},
+			#{r_role_time, jdbcType = VARCHAR},
+			#{r_fun_ids, jdbcType = VARCHAR},
+			#{r_role_desc, jdbcType = VARCHAR}
+		) 
+	</insert>
+	
+	<!-- 根据id修改对象属性 -->
+	<update id="updateSysRole" parameterType="com.bsit.model.SysRole" >
+		update sys_role t
+		set 
+			t.r_role_name = #{r_role_name, jdbcType = VARCHAR},
+			t.r_role_type = #{r_role_type, jdbcType = VARCHAR},
+			t.r_role_time = #{r_role_time, jdbcType = VARCHAR},
+			t.r_role_desc = #{r_role_desc, jdbcType = VARCHAR}
+		where t.id = #{id}	
+	</update>
+	
+	<!-- 根据id修改角色功能 -->
+	<update id="updateRoleFun" parameterType="com.bsit.model.SysRole" >
+		update sys_role t
+		set t.r_fun_ids = #{r_fun_ids, jdbcType = VARCHAR}
+		where t.id = #{id}	
+	</update>
+	
+	<!-- 根据id获取对象 -->
+	<select id="getSysRoleById" parameterType="String" resultType="com.bsit.model.SysRole">
+		select t.* from sys_role t where t.id = #{id}
+	</select>
+	
+	<!-- 根据type获取对象 -->
+	<select id="getSysRoleByType" parameterType="String" resultType="com.bsit.model.SysRole">
+		select t.* from sys_role t where t.r_role_type = #{type}
+	</select>
+	
+	<!-- 获取所有对象 -->
+	<select id="getTotalSysRoleList" resultType="com.bsit.model.SysRole">
+		select t.* from sys_role t order by t.r_role_time ASC
+	</select>
+	
+	<!-- 根据条件获取对象 -->
+	<select id="getSysRoleListByCondition" resultType="com.bsit.model.SysRole">
+		select t.* from sys_role t ${condition}
+	</select>
+	
+	<!-- 根据id删除对象 -->
+	<delete id="deleteSysRoleById" parameterType="String">
+		delete from sys_role where id = #{id}
+	</delete>
+	
+</mapper>

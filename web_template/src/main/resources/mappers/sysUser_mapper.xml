@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bsit.mapper.SysUserMapper">
+
+	<resultMap id="resultMap" type="com.bsit.model.SysUser">
+		<id property="id" column="id" />
+		<result property="username" column="username" />
+		<result property="password" column="password" />
+		<result property="create_time" column="create_time" />
+		<result property="login_time" column="login_time" />
+		<result property="login_times" column="login_times" />
+		<result property="role_id" column="role_id" />
+		<result property="status" column="status" />
+		<result property="remark" column="remark" />
+		<association property="role_name" column="role_id" select="getRoleNameByRoleId" />
+	</resultMap>
+	
+	<!-- 根据id获取角色对象信息 -->
+	<select id="getRoleNameByRoleId" parameterType="String" resultType="String">
+		select t.r_role_name from sys_role t where t.id = #{id}
+	</select>
+	
+	<insert id="saveSysUser" parameterType="com.bsit.model.SysUser">
+		insert into sys_user(
+			id,
+			username,
+			password,
+			create_time,
+			login_time,
+			login_times,
+			role_id,
+			status,
+			remark
+		)
+		values(
+			#{id, jdbcType = VARCHAR},
+			#{username, jdbcType = VARCHAR},
+			#{password, jdbcType = VARCHAR},
+			#{create_time, jdbcType = DATE},
+			#{login_time, jdbcType = DATE},
+			#{login_times, jdbcType = VARCHAR},
+			#{role_id, jdbcType = VARCHAR},
+			#{status, jdbcType = VARCHAR},
+			#{remark, jdbcType = VARCHAR}
+		)
+	</insert>
+
+	<!-- 根据id获取商户信息 -->
+	<select id="getSysUserById" resultMap="resultMap" parameterType="String">
+		select * from sys_user where id = #{ id }
+	</select>
+	
+		<!-- 根据id获取商户信息 -->
+	<select id="getSysUserByUserName" resultMap="resultMap" parameterType="String">
+		select * from sys_user where username = #{ userName }
+	</select>
+	
+	<select id="login" resultMap="resultMap" parameterType="java.util.Map">
+		select * from sys_user 
+		where username = #{ username } and password = #{ password }
+	</select>
+	
+	<!-- 通过条件查询用户信息 -->
+	<select id="getSysUserListByCondition" resultMap="resultMap" parameterType="java.util.Map">
+		select t.* from sys_user t ${condition}
+	</select>
+	
+	<!-- 获取所有用户信息 -->
+	<select id="getTotalSysUserList" resultMap="resultMap">
+		select t.* from sys_user t order by t.create_time ASC
+	</select>
+	
+	<update id="updateSysUser" parameterType="com.bsit.model.SysUser">
+		update sys_user t
+			set t.username = #{username, jdbcType = VARCHAR},
+				t.role_id = #{role_id, jdbcType = VARCHAR},
+				t.password = #{password, jdbcType = VARCHAR},
+				t.login_time = #{login_time, jdbcType = VARCHAR},
+				t.login_times = #{login_times, jdbcType = VARCHAR}
+		where t.id = #{id}
+	</update>
+
+	<!-- 修改密码 -->
+	<update id="modifyUserPwd" parameterType="com.bsit.model.SysUser">
+		update sys_user t
+		set t.password = #{password, jdbcType = VARCHAR}
+		where t.id = #{id}
+	</update>
+	
+	<delete id="delete_sys_user" parameterType="String">
+		delete from sys_user where id = #{id}
+	</delete>
+	
+</mapper>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bsit.mapper.FileInfoMapper" >
+	
+	<!-- 添加对象 -->
+	<insert id="saveFileInfo" parameterType="com.bsit.model.FileInfo" >
+		insert into file_info (
+			file_name,
+			file_type,
+			file_size,
+			file_path,
+			version_num,
+			version_name,
+			version_desc,
+			force_upgrade,
+			upload_time,
+			project_name,
+			merchant_no,
+			remark
+		) values (
+			#{file_name, 	jdbcType = VARCHAR},
+			#{file_type, 	jdbcType = VARCHAR},
+			#{file_size, 	jdbcType = VARCHAR},
+			#{file_path, 	jdbcType = VARCHAR},
+			#{version_num, 	jdbcType = VARCHAR},
+			#{version_name, jdbcType = VARCHAR},
+			#{version_desc, jdbcType = VARCHAR},
+			#{force_upgrade, jdbcType = VARCHAR},
+			#{upload_time, 	jdbcType = VARCHAR},
+			#{project_name, jdbcType = VARCHAR},
+			#{merchant_no, 	jdbcType = VARCHAR},
+			#{remark, 		jdbcType = VARCHAR}
+		) 
+	</insert>
+	
+	<select id="getFileInfoById" parameterType="String" resultType="com.bsit.model.FileInfo">
+		select t.* from file_info t where t.id = #{id}
+	</select>
+	
+	<select id="getLatestFileInfoByCondition" resultType="com.bsit.model.FileInfo">
+		select t.* from file_info t ${condition} order by CONVERT(t.version_num, SIGNED) DESC limit 1
+	</select>
+	
+	<select id="getFileInfoListByProjectName" parameterType="String" resultType="com.bsit.model.FileInfo">
+		select t.* from file_info t where t.project_name = #{ project_name } order by CONVERT(t.version_num, SIGNED) DESC
+	</select>
+	
+	<select id="getFileInfoListByCondition" resultType="com.bsit.model.FileInfo">
+		select t.* from file_info t ${condition}
+	</select>
+	
+</mapper>
