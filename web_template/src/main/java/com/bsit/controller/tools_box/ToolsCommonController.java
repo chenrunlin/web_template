@@ -22,14 +22,19 @@ public class ToolsCommonController{
 		return "/tools_box/tools_common";
 	}
 	
-	@RequestMapping(value="/tools_ref", method = RequestMethod.GET)
-	public String tools_ref(Model model, HttpServletResponse response) throws Exception {
-		return "/tools_box/tools_reference";
-	}
-	
 	@RequestMapping(value="/tools_format", method = RequestMethod.GET)
 	public String tools_format(Model model, HttpServletResponse response) throws Exception {
 		return "/tools_box/tools_format";
+	}
+	
+	@RequestMapping(value="/tools_character", method = RequestMethod.GET)
+	public String tools_character(Model model, HttpServletResponse response) throws Exception {
+		return "/tools_box/tools_character";
+	}
+	
+	@RequestMapping(value="/tools_ref", method = RequestMethod.GET)
+	public String tools_ref(Model model, HttpServletResponse response) throws Exception {
+		return "/tools_box/tools_reference";
 	}
 	
 	
