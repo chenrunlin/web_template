@@ -56,7 +56,6 @@
     		var tree = obj[i];
     		zNodes.push({ id : tree.id, pId : tree.pId, name : tree.name, open : tree.open, checked : tree.checked});
     	} 
-
         $(document).ready(function(){
             $.fn.zTree.init($("#tree"), setting, zNodes);
             //保存角色功能

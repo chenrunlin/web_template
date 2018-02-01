@@ -84,4 +84,13 @@ public class HttpUtil
         
         return resultBuffer.toString();
     }
+    
+    public static void main(String[] args) {
+    	try {
+			String result = sendPost("http://121.43.37.101:18080/pos/invoice/getUserInfoByUserId", "");
+			System.out.println(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

@@ -85,6 +85,15 @@
     	<url-pattern>/druid/*</url-pattern>
   	</servlet-mapping>
   	
+  	<servlet>
+        <servlet-name>echo</servlet-name>
+        <servlet-class>com.bsit.servlet.EchoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>echo</servlet-name>
+        <url-pattern>*.ws</url-pattern>
+    </servlet-mapping>
+  	
   	<!-- =========================过滤器的配置======================= -->
 	<filter>
 		<filter-name>sessionFilter</filter-name>

@@ -25,7 +25,7 @@ public class SysUserWebServiceTest {
         service = (SysUserWebServiceI)factoryBean.create();
     }
     
-    @Test
+//    @Test
     public void testGetUser(){
     	SysUser user = service.getSysUserByUserName("admin");
     	if (user == null) {
